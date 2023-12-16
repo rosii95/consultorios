@@ -1,0 +1,45 @@
+{%extends "template.html"%}
+{%load static%}
+{%block title%}CICEG{%endblock%}
+{%block content%}
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-preview">
+                            <a href="post.html">
+                                <h2 class="post-title">Turnos</h2>
+                                <h3 class="post-subtitle">Aceptamos IPS, OSPRERA y PAMI</h3>
+                            </a>
+                        </div>
+                        <div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Cod</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Médico</th>
+                                    <th scope="col">Paciente</th>
+                                    <th scope="col">Borrar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for t in turnos %}
+                                <tr>
+                                    <th scope="row">{{t.id}}</th>
+                                    <td>{{t.fecha}}</td>
+                                    <td>{{t.hora}}</td>
+                                    <td>{{t.doctor}}</td>
+                                    <td>{{t.paciente}}</td>
+                                    <td><a href="eliminar_turno/{{t.id}}" class="btn btn-block btn-sm btn-danger">Eliminar</a></td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+{%endblock%}
