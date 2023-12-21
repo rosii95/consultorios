@@ -1,5 +1,14 @@
 from django.db import models
 
+class consultorios(models.Model):
+    detalle=models.CharField(max_length=100, null=False, verbose_name='detalle')
+    def __str__(self):
+        return self.detalle  
+    class Meta:
+        db_table = 'consultorio'
+        verbose_name = 'consultorio'
+        verbose_name_plural = 'consultorios'
+
 class esp(models.Model):
     nombre=models.CharField(max_length=30, null=False, verbose_name='nombre')
     def __str__(self):
@@ -9,11 +18,12 @@ class esp(models.Model):
         verbose_name = 'especialización'
         verbose_name_plural = 'especialidades'
 
-class doctores(models.Model):
+class doc(models.Model):
     MP=models.PositiveIntegerField()
     nombre=models.CharField(max_length=30, null=False, verbose_name='nombre')
     apellido=models.CharField(max_length=30, null=False, verbose_name='apellido')
     especialidad=models.ForeignKey(esp, on_delete=models.CASCADE, blank=True, null=True)
+    consultorio=models.ForeignKey(consultorios,on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return '%s  %s'%(self.nombre,self.apellido)  
     class Meta:
@@ -21,6 +31,14 @@ class doctores(models.Model):
         verbose_name = 'doctor'
         verbose_name_plural = 'doctores'
         
+class enfermedad(models.Model):
+    descripción=models.CharField(max_length=30, null=False, )
+    def __str__(self):
+        return self.descripción  
+    class Meta:
+        db_table = 'enfermedad'
+        verbose_name = 'enfermedad'
+        verbose_name_plural = 'enfermedades'
         
 class obras_sociales(models.Model):
     nombre=models.CharField(max_length=30, null=False, verbose_name='nombre')
@@ -37,6 +55,7 @@ class pacientes(models.Model):
     nombre=models.CharField(max_length=30, null=False, verbose_name='Nombre')
     apellido=models.CharField(max_length=30, null=False, verbose_name='Apellido')
     obra_social=models.ForeignKey(obras_sociales, on_delete=models.CASCADE, blank=True, null=True)
+    enfermedad=models.ForeignKey(enfermedad, on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return '%s  %s'%(self.nombre,self.apellido)  
     class Meta:
@@ -47,7 +66,8 @@ class pacientes(models.Model):
 class turno(models.Model):
     fecha=models.DateField()
     hora=models.TimeField()
-    doctor=models.ForeignKey(doctores, on_delete=models.CASCADE, blank=True, null=True)
+    doctor=models.ForeignKey(doc, on_delete=models.CASCADE, blank=True, null=True)
+    especialidad=models.ForeignKey(esp, on_delete=models.CASCADE, blank=True, null=True)
     paciente=models.ForeignKey(pacientes, on_delete=models.CASCADE, blank=True, null=True)
     def __str__(self):
         return '%s  %s'%(self.fecha,self.hora)  

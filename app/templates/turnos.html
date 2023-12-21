@@ -20,6 +20,7 @@
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Hora</th>
                                     <th scope="col">Médico</th>
+                                    <th>Especialidad</th>
                                     <th scope="col">Paciente</th>
                                     <th scope="col">Borrar</th>
                                 </tr>
@@ -31,6 +32,7 @@
                                     <td>{{t.fecha}}</td>
                                     <td>{{t.hora}}</td>
                                     <td>{{t.doctor}}</td>
+                                    <td>{{t.doctor.especialidad}}</td>
                                     <td>{{t.paciente}}</td>
                                     <td><a href="eliminar_turno/{{t.id}}" class="btn btn-block btn-sm btn-danger">Eliminar</a></td>
                                 </tr>
